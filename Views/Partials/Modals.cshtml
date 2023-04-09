@@ -1,0 +1,205 @@
+﻿<!-- Ayuda Modal User HTML -->
+
+<div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="ModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel1">Como funciona esto?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            @*<img src="~/img/Imagen-ayuda-admin-1.png">*@
+                            <div class="p-3">
+                                <p>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*agregar cliente*@
+<div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="ModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel2">Agregar Cliente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="m-3 p-3" asp-controller="AdminCourier" asp-action="RegistrarUsuario" method="post">
+                    <div class="mb-4">
+                        <label class="form-label" for="cedula">Cedula</label>
+                        <div>
+                            <input name="cedula" type="text" id="cedula" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label" for="nombre">Nombre</label>
+                            <div>
+                                <input name="nombre" type="text" id="nombre" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label" for="apellido">Apellido</label>
+                            <div>
+                                <input name="apellido" type="text" id="apellido" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label" for="telefono">Telefono</label>
+                            <div>
+                                <input name="telefono" type="tel" id="telefono" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label" for="celular">Celular</label>
+                            <div>
+                                <input name="celular" type="tel" id="celular" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label" for="correo">Correo</label>
+                            <div>
+                                <input name="correo" type="email" id="correo" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label" for="sexo">Genero</label>
+                            <div>
+                                <select name="sexo" id="sexo" class="form-select" required>
+                                    <option value="" selected disabled>Genero</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                    <option value="O">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label" for="password">Password</label>
+                            <div>
+                                <input name="password" type="password" id="password" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label" for="confpassword">Repetir password</label>
+                            <div>
+                                <input name="confirmPassword" type="password" id="confpassword" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
+                </form>  
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*agregar paquete*@
+<div class="modal fade" id="Modal3" tabindex="-1" aria-labelledby="ModalLabel3" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel3">Agregar Paquete</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="m-3 p-3" asp-controller="AdminCourier" asp-action="RegistrarPaquete" method="post">
+
+                    <div class="mb-4">
+                        <label class="form-label" for="usuario">Id Cliente</label>
+                        <div>
+                            <input name="idUsuario" type="text" id="usuario" class="form-control" required />
+                        </div>
+                    </div>          
+                    
+                    <div class="mb-4">
+                        <label class="form-label" for="remitente">Remitente</label>
+                        <div>
+                                <select name="remitente" id="remitente" class="form-select" required>
+                                    <option selected disabled>Remitente</option>
+                                    <option>eBay</option>
+                                    <option>Amazon</option>
+                                    <option>Shein</option>
+                                    <option>Alibaba</option>
+                                    <option>Otro</option>
+                                </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label" for="contenido">Contenido</label>
+                        <div>
+                                <select name="contenido" id="contenido" class="form-select" required>
+                                    <option selected disabled>Contenido</option>
+                                    <option>Cosmetico</option>
+                                    <option>Juguete</option>
+                                    <option>Comestible</option>
+                                    <option>Tecnologico</option>
+                                    <option>Vestimenta</option>
+                                    <option>Otro</option>
+                                </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label" for="peso">Peso</label>
+                        <div>
+                            <input name="peso" type="text" id="contenido" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

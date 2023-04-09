@@ -1,0 +1,108 @@
+﻿@using Courier.Controllers
+@model Usuario
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Product Status</title>
+    <link rel="stylesheet" href="~/css/courier.css" asp-append-version="true">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="~/css/sweetalert2.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body style="background-color: #F0F8FF">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 side-header header-background">
+                <div class="logo">
+                    <img src="~/img/courier.png" alt="Logo" class="">
+                </div>
+                <ul class="config-options">
+                    <li><a asp-controller="Courier" asp-action="Index" class="btn btn-primary button-desing">Inicio</a> </li>
+                    <li><a asp-controller="Courier" asp-action="Sucursales" class="btn btn-primary button-desing">Sucursales</a> </li>
+                    <li><button class="btn btn-primary button-desing" type="button" data-bs-toggle="modal" data-bs-target="#Modal1">Ayuda</button> </li>
+                    <li class="button-botton"><a asp-controller="Courier" asp-action="Configuracion" class="btn btn-primary button-desing">Configuracion</a> </li>
+                    <li><a asp-controller="Login" asp-action="LogOut" class="btn btn-danger button-desing">Cerrar sesion</a> </li>
+                </ul>
+            </div>
+
+            <div class="col-10">
+                <div class="grid">
+                    <h2>Configuracion</h2>
+                    <div class="card-body">
+                        <form asp-controller="Courier" asp-action="Editar">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input asp-for="Cedula" hidden/>
+                            <input asp-for="Rol" hidden />
+                            <input asp-for="Estatus" hidden />
+                            <input asp-for="Sexo" hidden />
+                            <input asp-for="Password" hidden />
+                            <div class="mb-3">
+                                <label asp-for="Nombre" class="form-label"></label>
+                                <input asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Apellido" class="form-label"></label>
+                                <input asp-for="Apellido" class="form-control" />
+                                <span asp-validation-for="Apellido" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Correo" class="form-label"></label>
+                                <input asp-for="Correo" class="form-control" />
+                                <span asp-validation-for="Correo" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Celular" class="form-label"></label>
+                                <input asp-for="Celular" class="form-control" />
+                                <span asp-validation-for="Cedula" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Telefono" class="form-label"></label>
+                                <input asp-for="Telefono" class="form-control" />
+                                <span asp-validation-for="Telefono" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Password" class="form-label"></label>
+                                <input name="pass" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <br>
+                            <div class="mb-3">
+                                <div class="form-group col-md-6">
+                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </form>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const tipo = '@TempData["Tipo"]';
+        const titulo = '@TempData["Titulo"]';
+        const mensaje = '@TempData["Mensaje"]';
+    </script>
+    <script src="~/js/sweetalert2.min.js" asp-append-version="true"></script>
+    <script src="~/js/alerts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="~/js/script.js"></script>
+
+    @await Html.PartialAsync("~/Views/Partials/Modals.cshtml")
+</body>
+
+</html>

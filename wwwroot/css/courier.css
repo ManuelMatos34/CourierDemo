@@ -1,0 +1,107 @@
+body {
+
+}
+
+/*header*/
+
+.side-header {
+    background-color: white;
+    height: 100vh;
+    border-right: 1px solid #dfe3e8;
+}
+
+.logo img {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.button-desing {
+    width: 100%;
+}
+
+.config-options {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .config-options li {
+        font-weight: bold;
+        padding: 10px 20px;
+        cursor: pointer;
+        color: #6c757d;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .config-options li:hover {
+            background-color: #d9e2ec;
+            color: #333;
+        }
+
+.button-botton {
+    margin-top: 29rem;
+}
+
+/*table*/
+
+.grid {
+    margin: 50px auto 50px auto;
+    padding: 20px 20px;
+    border: 2px solid #BFBFBF;
+    background-color: white;
+    box-shadow: 1px 1px 19px #aaaaaa;
+    border-collapse: collapse;
+    border-radius: 5px 5px 5px 5px;
+    width: 90rem;
+}
+
+.grid2 {
+    margin: 50px auto 50px auto;
+    padding: 20px 20px;
+    border: 2px solid #BFBFBF;
+    background-color: white;
+    box-shadow: 1px 1px 19px #aaaaaa;
+    border-collapse: collapse;
+    border-radius: 5px 5px 5px 5px;
+    width: 30rem;
+    
+}
+
+/*sucursales*/
+
+    .wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ul-style {
+    list-style: none;
+    padding: 0;
+}
+
+.li-style {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: aliceblue;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    width: calc(100% - 2rem);
+    box-shadow: 0.25rem 0.25rem 0.75rem rgb(0 0 0 / 0.1);
+}
+
+.header-background {
+    background-image: url('../img/pexels-tima-miroshnichenko-6169668.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+
+
+
+
+

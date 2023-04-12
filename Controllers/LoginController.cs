@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
+using System.Net.Mail;
 
 namespace Courier.Controllers
 {
@@ -40,8 +41,20 @@ namespace Courier.Controllers
                 _context.Usuarios.Add(usuario);
                 _context.SaveChanges();
 
+                MailMessage mail = new MailMessage();
+                mail.To.Add(new MailAddress(usuario.Correo, ""));
+                mail.From = new MailAddress("admisionesunphu@hotmail.com");
+                mail.Subject = "Courier Registro";
+                mail.Body = "Usted se ha registrado correctamente";
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient("smtp.office365.com", 587);
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.Credentials = new System.Net.NetworkCredential("admisionesunphu@hotmail.com", "1234HOLA");
+                smtp.Send(mail);
+
                 TempData["Titulo"] = "Confirmacion";
-                TempData["Mensaje"] = "Registro realizado correctamente";
+                TempData["Mensaje"] = "Registro realizado correctamente, revise su correo";
                 TempData["Tipo"] = "success";
             }
             else

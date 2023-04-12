@@ -56,7 +56,7 @@
                                         <td>@item.Contenido</td>
                                         <td>@item.Peso</td>
                                         <td>@item.Estatus</td>
-                                        <td><a asp-controller="Courier" asp-action="DetallesPago" class="btn btn-primary">Ver detalles de pago</a></td>
+                                        <td><a asp-route-IdPaquete="@item.IdPaquete" asp-controller="Courier" asp-action="DetallesPago" class="btn btn-primary">Ver detalles de pago</a></td>
                                     </tr>
                                 }
                             </tbody>

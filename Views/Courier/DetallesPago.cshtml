@@ -38,30 +38,37 @@
                 <div class="grid">
                     <h2>Detalles Pago</h2>
                     <div class="m-3 p-3">
-                        <p>Nombre: Manuel Matos</p>
-                        <p>RNC: 12345678909</p>
-                        <p>Num. Recibo: 1</p>
-                        <p>Fecha: </p>
+                        @foreach (DetalleFactura item in ViewBag.Factura)
+                        {
+                            <p>Nombre: @item.Nombre @item.Apellido</p>
+                            <p>RNC: @item.Cedula</p>
+                            <p>Num. Recibo: @item.Id</p>
+                            <p>Factura Generada: @item.FechaGeneracion</p>
+                        }
                     </div>
 
                     <div class="card-body">
                         <table class="table ">
                             <thead>
                                 <tr>
-                                    <th>Producto</th>
-                                    <th>peso x courierprecio</th>
+                                    <th>ID-Paquete</th>
+                                    <th>Paquete</th>
+                                    <th>Peso</th>
+                                    <th>Courier</th>
                                     <th>Impuesto</th>
-                                    <th>Total</th>
-
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Producto 1</td>
-                                    <td>1.00</td>
-                                    <td>1.00</td>
-                                    <td>3.00</td>
-                                </tr>
+                                @foreach (DetalleFactura item in ViewBag.Factura)
+                                {
+                                    <tr>
+                                        <td>@item.IdPaquete</td>
+                                        <td>@item.Contenido</td>
+                                        <td>@item.Peso lb</td>
+                                        <td>300$RD</td>
+                                        <td>100$RD</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

@@ -13,6 +13,8 @@ public partial class Estatus
 
     public virtual ICollection<CentroDistribucion> CentroDistribucions { get; } = new List<CentroDistribucion>();
 
+    public virtual ICollection<Factura> Facturas { get; } = new List<Factura>();
+
     public virtual ICollection<Paquete> Paquetes { get; } = new List<Paquete>();
 
     public virtual ICollection<Role> Roles { get; } = new List<Role>();

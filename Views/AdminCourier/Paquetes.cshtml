@@ -71,9 +71,6 @@
                 </form>
             </div>
             <div class="col-md-4">
-                <a class="btn btn-primary m-1" >
-                    Generar Reporte<i class="bi bi-file-earmark-pdf-fill m-1" title="Reporte General"></i>
-                </a>
                 <a class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#Modal3">
                     Agregar Paquete
                 </a>
@@ -91,6 +88,7 @@
                         <th>Contenido</th>
                         <th>Peso</th>
                         <th>Estatus</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,7 +100,7 @@
                             <td>@item.Remitente</td>
                             <td>@item.Contenido</td>
                             <td>@item.Peso</td>
-                            <form asp-route-id="@item.IdPaquete" asp-controller="AdminCourier" asp-action="UpdateStatusPaquetes">
+                            <form asp-route-id="@item.IdPaquete" asp-route-idUser="@item.IdUsuario" asp-controller="AdminCourier" asp-action="UpdateStatusPaquetes">
                             <td>
                                 <div class="input-group">
                                     <select name="newStatus" class="form-select">
@@ -120,6 +118,8 @@
                                 </div>
                             </td>
                             </form>
+                            <td><a asp-controller="AdminCourier" asp-action="GenerarFactura" class="btn btn-primary" asp-route-idPaquete="@item.IdPaquete" asp-route-idUsuario="@item.IdUsuario"
+                            asp-route-contenido="@item.Contenido" asp-route-peso="@item.Peso">Generar factura</a></td>
                         </tr>
                     }
                 </tbody>

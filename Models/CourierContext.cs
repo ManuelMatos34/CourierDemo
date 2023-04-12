@@ -45,7 +45,7 @@ public partial class CourierContext : DbContext
                 .HasColumnName("id");
             entity.Property(e => e.Direccion).HasColumnName("direccion");
             entity.Property(e => e.Estatus)
-                .HasMaxLength(12)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("estatus");
             entity.Property(e => e.Nombre)
@@ -73,7 +73,7 @@ public partial class CourierContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("direccion");
             entity.Property(e => e.Estatus)
-                .HasMaxLength(12)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("estatus");
             entity.Property(e => e.Nombre).HasColumnName("nombre");
@@ -90,7 +90,7 @@ public partial class CourierContext : DbContext
             entity.ToTable("estatus");
 
             entity.Property(e => e.Estatus1)
-                .HasMaxLength(12)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("estatus");
             entity.Property(e => e.Decripcion)
@@ -104,18 +104,24 @@ public partial class CourierContext : DbContext
             entity.ToTable("factura");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Fecha)
+            entity.Property(e => e.Estatus)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("estatus");
+            entity.Property(e => e.FechaGeneracion)
                 .HasColumnType("datetime")
-                .HasColumnName("fecha");
+                .HasColumnName("fechaGeneracion");
+            entity.Property(e => e.FechaPago).HasColumnType("datetime");
             entity.Property(e => e.IdPaquete).HasColumnName("id_paquete");
             entity.Property(e => e.IdUsuario)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id_usuario");
-            entity.Property(e => e.Total)
-                .HasMaxLength(10)
-                .IsFixedLength()
-                .HasColumnName("total");
+            entity.Property(e => e.Total).HasColumnName("total");
+
+            entity.HasOne(d => d.EstatusNavigation).WithMany(p => p.Facturas)
+                .HasForeignKey(d => d.Estatus)
+                .HasConstraintName("FK_factura_estatus");
 
             entity.HasOne(d => d.IdPaqueteNavigation).WithMany(p => p.Facturas)
                 .HasForeignKey(d => d.IdPaquete)
@@ -138,7 +144,7 @@ public partial class CourierContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("contenido");
             entity.Property(e => e.Estatus)
-                .HasMaxLength(12)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("estatus");
             entity.Property(e => e.IdUsuario)
@@ -175,7 +181,7 @@ public partial class CourierContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("decripcion");
             entity.Property(e => e.Estatus)
-                .HasMaxLength(12)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("estatus");
 
@@ -197,7 +203,7 @@ public partial class CourierContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("direccion");
             entity.Property(e => e.Estatus)
-                .HasMaxLength(12)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("estatus");
             entity.Property(e => e.Nombre)
@@ -230,7 +236,7 @@ public partial class CourierContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("correo");
             entity.Property(e => e.Estatus)
-                .HasMaxLength(12)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("estatus");
             entity.Property(e => e.Nombre)

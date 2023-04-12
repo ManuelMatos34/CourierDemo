@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -48,7 +49,7 @@ namespace Courier.Controllers
             }
         }
 
-        public IActionResult UpdateStatusPaquetes(string id, string newStatus)
+        public IActionResult UpdateStatusPaquetes(string id, string newStatus, string idUser)
         {
             SqlConnection conexion = Conexion.GetConexion();
             conexion.Open();
@@ -59,6 +60,23 @@ namespace Courier.Controllers
             comando.ExecuteNonQuery();
             conexion.Close();
 
+            if (newStatus == "Disponible")
+            {
+                Usuario usuario = _context.Usuarios.FromSqlRaw("select * from usuarios where cedula = '" + idUser + "'").FirstOrDefault();
+
+                MailMessage mail = new MailMessage();
+                mail.To.Add(new MailAddress(usuario.Correo, ""));
+                mail.From = new MailAddress("admisionesunphu@hotmail.com");
+                mail.Subject = "Paquete courier";
+                mail.Body = "Usted tiene un paquete disponible en courier, ingrese a la web, detalles pago.";
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient("smtp.office365.com", 587);
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.Credentials = new System.Net.NetworkCredential("admisionesunphu@hotmail.com", "1234HOLA");
+                smtp.Send(mail);
+            }
+            
             TempData["Titulo"] = "Confirmacion";
             TempData["Mensaje"] = "Estatus modificado correctamente";
             TempData["Tipo"] = "success";
@@ -80,6 +98,45 @@ namespace Courier.Controllers
             TempData["Titulo"] = "Confirmacion";
             TempData["Mensaje"] = "Registro realizado correctamente";
             TempData["Tipo"] = "success";
+
+            return RedirectToAction("Paquetes", "AdminCourier");
+        }
+
+        public IActionResult GenerarFactura(string idPaquete, string idUsuario, double peso)
+        {
+            Factura factura = _context.Facturas.FromSqlRaw("select * from factura where id_paquete = '" + idPaquete + "' ").FirstOrDefault();
+
+            if (factura == null)
+            {
+                var time = DateTime.Now;
+                double precioCourier = 300;
+                double total = peso * precioCourier;
+                double impuesto = 100;
+                double t = total + impuesto;
+
+                SqlConnection conexion = Conexion.GetConexion();
+                conexion.Open();
+                string sql = "Insert into factura(id_usuario, id_paquete, fechaGeneracion, estatus, total) " +
+                    "values(@usuario,@paquete,@fechaGeneracion,@estatus,@total)";
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                comando.Parameters.AddWithValue("@usuario", idUsuario);
+                comando.Parameters.AddWithValue("@paquete", idPaquete);
+                comando.Parameters.AddWithValue("@fechaGeneracion", time);
+                comando.Parameters.AddWithValue("@estatus", "NoPago");
+                comando.Parameters.AddWithValue("@total", t);
+                comando.ExecuteNonQuery();
+                conexion.Close();
+
+                TempData["Titulo"] = "Confirmacion";
+                TempData["Mensaje"] = "Factura generada correctamente";
+                TempData["Tipo"] = "success";
+            }
+            else
+            {
+                TempData["Titulo"] = "Ha ocurrido un error";
+                TempData["Mensaje"] = "este paquete ya tienen su factura";
+                TempData["Tipo"] = "error";
+            }
 
             return RedirectToAction("Paquetes", "AdminCourier");
         }

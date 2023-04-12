@@ -1,5 +1,6 @@
 ﻿using Courier.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,10 +25,59 @@ namespace Courier.Controllers
             return View(user);
         }
 
-        public IActionResult DetallesPago()
+        public IActionResult Sucursales()
         {
             return View();
         }
+
+        public IActionResult DetallesPago(string idPaquete)
+        {
+            Factura f = _context.Facturas.FromSqlRaw("select * from factura where id_paquete = '" + idPaquete + "' ").FirstOrDefault();
+            if (f == null)
+            {
+                TempData["Titulo"] = "Ha Ocurrido un error";
+                TempData["Mensaje"] = "Todavia no se ha generado la factura de su paquete";
+                TempData["Tipo"] = "error";
+
+                return RedirectToAction("Index", "Courier");
+            }
+            else
+            {
+                ViewBag.Factura = misfacturas(idPaquete);
+            } 
+            
+            return View();
+        }
+
+        public List<DetalleFactura> misfacturas(string idPaquete)
+        {
+                SqlConnection conexion = Conexion.GetConexion();
+                conexion.Open();
+                string sql = "select f.id, u.nombre, u.apellido, u.cedula, f.fechaGeneracion, f.id_paquete, p.contenido, p.peso, f.total from factura f, usuarios u, paquetes p where f.id_paquete = p.id_paquete and f.id_usuario = u.cedula and p.id_paquete = '" + idPaquete + "'";
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                SqlDataReader reader = comando.ExecuteReader();
+
+                List<DetalleFactura> factura = new List<DetalleFactura>();
+
+                while (reader.Read())
+                {
+                    DetalleFactura t = new DetalleFactura();
+                    t.Id = reader.GetInt32(0);
+                    t.Nombre = reader.GetString(1);
+                    t.Apellido = reader.GetString(2);
+                    t.Cedula = reader.GetString(3);
+                    t.FechaGeneracion = reader.GetDateTime(4);
+                    t.IdPaquete = reader.GetInt32(5);
+                    t.Contenido = reader.GetString(6);
+                    t.Peso = reader.GetDouble(7);
+                    t.Total = reader.GetInt32(8);
+                    factura.Add(t);
+                }
+
+                conexion.Close();
+                return factura;
+        }
+   
 
         public List<Paquete> paquetes()
         {
